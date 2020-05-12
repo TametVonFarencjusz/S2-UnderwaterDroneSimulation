@@ -1,0 +1,10 @@
+Wznoszenie 90 > ?
+Pływanie do tyłu
+Animacja "stałe przemieszczenie"/"stały czas"
+
+
+
+
+!!!!!BUG!!!!!
+za dużo destruktorów
+
