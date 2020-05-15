@@ -17,7 +17,6 @@ class Prostopadloscian : public Obiekt3D{
 
   void Refresh(Wektor3D punkty[]);
   public:
-  //Prostopadloscian() : Obiekt3D() {}
   Prostopadloscian(std::shared_ptr<drawNS::Draw3DAPI> A, std::string C = "yellow") : Obiekt3D(A), point0(1,1,1) {color = C;}
   Prostopadloscian(std::shared_ptr<drawNS::Draw3DAPI> A, const Wektor3D & P1, std::string C = "yellow") : Obiekt3D(A), point0(P1) {color = C;}  
   Prostopadloscian(std::shared_ptr<drawNS::Draw3DAPI> A, const MacierzOb & Macierz, const Wektor3D & Srod, const Wektor3D & Punkt, std::string C = "yellow") : Obiekt3D(A)  

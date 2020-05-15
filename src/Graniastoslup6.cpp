@@ -4,21 +4,19 @@
 
   void Graniastoslup6::Refresh(Wektor3D punkty[])
   {
-    MacierzOb tempMac;
+    punkty[0]  = center + MacierzOb(0 , WymiarZ)  * orientation * point0;
+    punkty[1]  = center + MacierzOb(60, WymiarZ)  * orientation * point0;
+    punkty[2]  = center + MacierzOb(120, WymiarZ) * orientation * point0;
+    punkty[3]  = center + MacierzOb(180, WymiarZ) * orientation * point0;
+    punkty[4]  = center + MacierzOb(240, WymiarZ) * orientation * point0;
+    punkty[5]  = center + MacierzOb(300, WymiarZ) * orientation * point0;
 
-    punkty[0]  = center + tempMac.Obrot(0 , WymiarZ)  * orientation * point0;
-    punkty[1]  = center + tempMac.Obrot(60, WymiarZ)  * orientation * point0;
-    punkty[2]  = center + tempMac.Obrot(120, WymiarZ) * orientation * point0;
-    punkty[3]  = center + tempMac.Obrot(180, WymiarZ) * orientation * point0;
-    punkty[4]  = center + tempMac.Obrot(240, WymiarZ) * orientation * point0;
-    punkty[5]  = center + tempMac.Obrot(300, WymiarZ) * orientation * point0;
-
-    punkty[6]  = center + tempMac.Obrot(0 , WymiarZ)  * orientation * point0.Reverse(WymiarZ);
-    punkty[7]  = center + tempMac.Obrot(60, WymiarZ)  * orientation * point0.Reverse(WymiarZ);
-    punkty[8]  = center + tempMac.Obrot(120, WymiarZ) * orientation * point0.Reverse(WymiarZ);
-    punkty[9]  = center + tempMac.Obrot(180, WymiarZ) * orientation * point0.Reverse(WymiarZ);
-    punkty[10] = center + tempMac.Obrot(240, WymiarZ) * orientation * point0.Reverse(WymiarZ);
-    punkty[11] = center + tempMac.Obrot(300, WymiarZ) * orientation * point0.Reverse(WymiarZ);
+    punkty[6]  = center + MacierzOb(0 , WymiarZ)  * orientation * point0.Reverse(WymiarZ);
+    punkty[7]  = center + MacierzOb(60, WymiarZ)  * orientation * point0.Reverse(WymiarZ);
+    punkty[8]  = center + MacierzOb(120, WymiarZ) * orientation * point0.Reverse(WymiarZ);
+    punkty[9]  = center + MacierzOb(180, WymiarZ) * orientation * point0.Reverse(WymiarZ);
+    punkty[10] = center + MacierzOb(240, WymiarZ) * orientation * point0.Reverse(WymiarZ);
+    punkty[11] = center + MacierzOb(300, WymiarZ) * orientation * point0.Reverse(WymiarZ);
   }
 
   void Graniastoslup6::Draw() 

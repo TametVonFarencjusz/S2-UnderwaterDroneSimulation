@@ -13,21 +13,24 @@ class Woda : public Plaszczyzna{
   //Woda() : zLevel(10),noise(0.5){};
   //Woda(double Z = 10, double N = 0) : zLevel(Z),noise(N){};
 
-  Woda(std::shared_ptr<drawNS::Draw3DAPI> A, double Z = -10, std::string color = "blue") : Plaszczyzna(A, Z, color){};
+  Woda(std::shared_ptr<drawNS::Draw3DAPI> A, double Z = -10, double N = 0.5, std::string color = "blue") : Plaszczyzna(A, Z, color), noise(N){};
 
   void Draw() override
   {
-    id = api->draw_surface(vector<vector<Point3D> > {{
-	drawNS::Point3D(-10,-10,zLevel), drawNS::Point3D(-10,-5,zLevel), drawNS::Point3D(-10,0,zLevel), drawNS::Point3D(-10,5,zLevel), drawNS::Point3D(-10,10,zLevel)
-	  },{
-	drawNS::Point3D(-5,-10,zLevel), drawNS::Point3D(-5,-5,zLevel), drawNS::Point3D(-5,0,zLevel), drawNS::Point3D(-5,5,zLevel), drawNS::Point3D(-5,10,zLevel)      
-	  },{
-	drawNS::Point3D(0,-10,zLevel), drawNS::Point3D(0,-5,zLevel), drawNS::Point3D(0,0,zLevel), drawNS::Point3D(0,5,zLevel), drawNS::Point3D(0,10,zLevel)
-          },{
-	drawNS::Point3D(5,-10,zLevel), drawNS::Point3D(5,-5,zLevel), drawNS::Point3D(5,0,zLevel), drawNS::Point3D(5,5,zLevel), drawNS::Point3D(5,10,zLevel)
-          },{
-        drawNS::Point3D(10,-10,zLevel), drawNS::Point3D(10,-5,zLevel), drawNS::Point3D(10,0,zLevel), drawNS::Point3D(10,5,zLevel), drawNS::Point3D(10,10,zLevel) 
-	  }},color);//rysuje zolta powierzchnie
+    vector<vector<Point3D>> pointVectorBig;
+    
+    for (int j = -PLANEPOINT; j <= PLANEPOINT; ++j)
+    {
+      vector<Point3D> pointVectorSmall;
+      for (int i = -PLANEPOINT; i <= PLANEPOINT; ++i)
+      {
+        Wektor3D tempWektor(i*PLANESKIP,j*PLANESKIP,zLevel + noise * (i%2==0?-1:1));
+        tempWektor = orientation * tempWektor;
+        pointVectorSmall.push_back(tempWektor);
+      }
+      pointVectorBig.push_back(pointVectorSmall);
+    }
+     id = api->draw_surface(pointVectorBig,color);//rysuje zolta powierzchnie
   }
 };
 

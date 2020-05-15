@@ -12,43 +12,92 @@
 
 class Dron : public Prostopadloscian{
   protected:
-  //Wektor3D position;
-
+  /*!
+   * \brief angle of dron
+   */
   double angle;
-  //Prostopadloscian body;
+  /*!
+   * \brief angle of propellers (axis z)
+   */
+  double anglePropeller;
+  /*!
+   * \brief Left propeller (Graniastoslup6)
+   */
   Graniastoslup6 propellerLeft;
+  /*!
+   * \brief Right propeller (Graniastoslup6)
+   */
   Graniastoslup6 propellerRight;
 
+
+  /*!
+   * \brief refreshes left propeller's parametrs
+   */
+  void RefreshPropellerLeft();
+  /*!
+   * \brief refreshes right propeller's parametrs
+   */
+  void RefreshPropellerRight();
+
   public:
+  /*!
+   * \brief Constructor
+   * \param A - pointer on api,
+   */
   Dron(std::shared_ptr<drawNS::Draw3DAPI> A) : Prostopadloscian(A), propellerLeft(A, "yellow"), propellerRight(A, "yellow")
   {
-    //api = A;
-    point0 = {3,2,2}; 
-    //point0Propeller = {1,1,1}; 
+    point0 = {3,2,2};
+    anglePropeller = 0;
+    //propellerRight.setOrientation(MacierzOb(90, WymiarY));
   }
-
-  //void setSpeed(double S){speedXYZ = S;}
-  //double getSpeed() const {return speedXYZ;}
-  
-  void setAngle(double A){angle = A; orientation.Obrot(angle, WymiarZ);}
+  /*!
+   * \brief Destructor
+   */
+  ~Dron() {UnDrawAll();}
+  /*!
+   * \brief Setter - angle
+   * \param A - angle in degrees.
+   */
+  void setAngle(double A){angle = A; orientation = MacierzOb(angle, WymiarZ);}
+  /*!
+   * \brief Getter - angle
+   * \return angle in degrees.
+   */
   double getAngle() const {return angle;}
-  void addAngle(double A){angle += A; orientation.Obrot(angle, WymiarZ);}
+  /*!
+   * \brief adding degrees to dron's angle 
+   * \param A - angle in degrees.
+   */
+  void addAngle(double A){angle += A; orientation = MacierzOb(angle, WymiarZ);}
 
-  //void setAngleUpDown(double A){angle[0] = A;}
-  //double getAngleUpDown() const {return angle[0];}
-
-  //void setPosition(Wektor3D W){position = W;}
-  //Wektor3D getPosition() const {return position;}
-
-  void DrawAll();
-  void Move(double speed, double angle);
-  void MoveAnimation(double speed, double angle);
+  /*!
+   * \brief move dron - changes center parametrs
+   * \param speed - distance that dron will go,
+   * \param angleY - angle in degrees.
+   */  
+  void Move(double speed, double angleY);
+  /*!
+   * \brief calls Move(), DrawAll() and usleep(10000) 100 times
+   * move dron - animation takes 1 sec to complete.
+   * \param speed - distance that dron will go,
+   * \param angleY - angle in degrees.
+   */  
+  void MoveAnimation(double speed, double angleY);
+  /*!
+   * \brief calls addAngle(), DrawAll() and usleep(10000) 100 times
+   * rotate dron - animation takes 1 sec to complete.
+   * \param angleZ - angle in degrees.
+   */  
   void addAngleAnimation(double angleZ);
-  //Rysowanie
+
+  /*!
+   * \brief calls UnDrawAll(), RefreshPropellerLeft(), RefreshPropellerRight() and Draw() for Dron and Propellers
+   */
+  void DrawAll();
+  /*!
+   * \brief undraws dron body (cuboid) and 2 propellers
+   */
   void UnDrawAll();
-  void DrawPropellerLeft();
-  void DrawPropellerRight();
-  //int DrawBody();
 };
 
 #endif

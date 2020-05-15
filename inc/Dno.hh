@@ -6,9 +6,26 @@
 #include <string>
 
 class Dno : public Plaszczyzna{
+  protected:
+
   public:
-  //Dno()  : z(-10),noise(0),color("yellow") override{};
-  //Dno(double Z = -10,double N = 0, std::string C = "yellow") : zLevel(Z),noise(N),color(C){};
+  Dno(std::shared_ptr<drawNS::Draw3DAPI> A, double Z = -10, std::string color = "orange") : Plaszczyzna(A, Z, color){};
+
+  /*void Draw() override
+  {
+    vector<vector<Point3D>> pointVectorBig;
+    
+    for (int j = -PLANEPOINT; j <= PLANEPOINT; ++j)
+    {
+      vector<Point3D> pointVectorSmall;
+      for (int i = -PLANEPOINT; i <= PLANEPOINT; ++i)
+      {
+        pointVectorSmall.push_back(drawNS::Point3D(i*PLANESKIP,j*PLANESKIP,zLevel));
+      }
+      pointVectorBig.push_back(pointVectorSmall);
+    }
+     id = api->draw_surface(pointVectorBig,color);
+  }*/
 };
 
 #endif

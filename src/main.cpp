@@ -42,19 +42,16 @@ int main() {
   
   Wektor3D A(2,3,2);
 
-  Plaszczyzna dno(api, -10, "orange");
+  Dno dno(api, -10, "orange");
   dno.Draw();  
 
   Woda woda(api, 10);
   woda.Draw();
 
-
-  //Graniastoslup6 P(api, A);
-  //P.Draw();
   api->redraw();
 
   wait4key();
-  //api->erase_shape(P.getID());
+  
 
   Dron D(api);
   D.DrawAll();
@@ -115,7 +112,7 @@ int main() {
       std::cin.ignore(10000,'\n');
     }
     //D.DrawAll();
-    //std::cout << std::endl; sayCountWektor3D(); std::cout << std::endl;
+    std::cout << std::endl; sayCountWektor3D(); std::cout << std::endl;
     std::cout << "Twoj wybor, m - menu>";
     std::cin >> option;
     std::cout << std::endl;

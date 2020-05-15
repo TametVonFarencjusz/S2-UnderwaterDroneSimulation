@@ -23,13 +23,6 @@ public:
   }
   MacierzOb(double alfa, Wymiar w)
   {
-    Obrot(alfa, w);
-  }
-
-  MacierzOb(const Macierz<double, 3> M) : Macierz<double, 3>(M) {}
-
-  MacierzOb Obrot(double alfa, Wymiar w)
-  {
     double tempAlfa = alfa / 180 * M_PI;
     switch (w) {
     case WymiarX:
@@ -73,7 +66,20 @@ public:
       array[2][2] = 1;
     break;
     }
-    return (*this);
+  }
+
+  MacierzOb(const Macierz<double, 3> M) : Macierz<double, 3>(M) 
+  {
+    bool flag = true;
+    //Macierz ortagonalna
+    if((M.Wyznacznik()-1) > EPSILON)
+    flag = false;
+    //Macierz ortagonalna
+    Macierz<double, 3> temp = M * M.transponuj();
+    if ((temp[0][0] - 1) > EPSILON || (temp[1][1] - 1) > EPSILON || (temp[2][2] - 1) > EPSILON)
+    flag = false;
+    if (!flag)
+    std::cerr << ERRORMACIERZOB << std::endl;
   }
 };
 
