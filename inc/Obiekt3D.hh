@@ -16,7 +16,20 @@ class Obiekt3D{
   std::string color;
   int id;
 
+  static int countAll;
+  static int countDestroyed;
+
   public:
+  /*!
+   * \brief getter of static countAll
+   * \return all created Obiekt3D - static int.
+   */ 
+  static int howManyAll(){return countAll;}
+  /*!
+   * \brief getter of static countAll - countDestroyed
+   * \return count of existing Obiekt3D - static int.
+   */ 
+  static int howManyNow(){return countAll - countDestroyed;}
   /*!
    * \brief deleted non-parametric constructor to force using parametric.
    */ 
@@ -26,7 +39,13 @@ class Obiekt3D{
    * \param A - pointer api,
    * \param C - color name (std::string); basic is "black".
    */
-  Obiekt3D(std::shared_ptr<drawNS::Draw3DAPI> A, std::string C = "black") : api(A), color(C), id(-1) {}
+  Obiekt3D(const Obiekt3D & O) : api(O.api), orientation(O.orientation), center(O.center), color(O.color), id(-1) {countAll++;}
+  /*!
+   * \brief Constructor.
+   * \param A - pointer api,
+   * \param C - color name (std::string); basic is "black".
+   */
+  Obiekt3D(std::shared_ptr<drawNS::Draw3DAPI> A, std::string C = "black") : api(A), color(C), id(-1) {countAll++;}
   /*!
    * \brief Constructor
    * \param A - pointer on api,
@@ -34,11 +53,11 @@ class Obiekt3D{
    * \param S - vector3D (Center),
    * \param C - color name (std::string); basic is "black",
    */
-  Obiekt3D(std::shared_ptr<drawNS::Draw3DAPI> A, MacierzOb M, Wektor3D S, std::string C = "black") :  api(A), orientation(M), center(S), color(C) , id(-1) {}
+  Obiekt3D(std::shared_ptr<drawNS::Draw3DAPI> A, MacierzOb M, Wektor3D S, std::string C = "black") :  api(A), orientation(M), center(S), color(C) , id(-1) {countAll++;}
   /*!
    * \brief destructor that undraw Obiekt3D
    */ 
-  ~Obiekt3D() {UnDraw();}
+  ~Obiekt3D() {UnDraw();countDestroyed++;}
   /*!
    * \brief Setter - center
    * \param Wektor3D.

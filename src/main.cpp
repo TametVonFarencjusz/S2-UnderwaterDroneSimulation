@@ -30,6 +30,11 @@ void sayCountWektor3D(){
       std::cout << "Laczna ilosc obiektow Wektor3D: "   << Wektor3D::howManyAll() << std::endl;
 }
 
+void sayCountObiekt3D(){
+      std::cout << "Aktualna ilosc obiektow Wektor3D: " << Obiekt3D::howManyNow() << std::endl ; //Aktualna  
+      std::cout << "Laczna ilosc obiektow Wektor3D: "   << Obiekt3D::howManyAll() << std::endl;
+}
+
 void wait4key() {
   do {
     std::cout << "\n Press a key to continue..." << std::endl;
@@ -113,6 +118,7 @@ int main() {
     }
     //D.DrawAll();
     std::cout << std::endl; sayCountWektor3D(); std::cout << std::endl;
+    std::cout << std::endl; sayCountObiekt3D(); std::cout << std::endl;
     std::cout << "Twoj wybor, m - menu>";
     std::cin >> option;
     std::cout << std::endl;

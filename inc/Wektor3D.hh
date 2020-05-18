@@ -22,8 +22,9 @@ public:
 
 
   Wektor3D() : Wektor<double, 3>() {++countAll;} //34
+  Wektor3D(const Wektor3D & W) : Wektor<double, 3>(W) {++countAll;}
   Wektor3D(double x, double y, double z) {array[0] = x; array[1] = y; array[2] = z; ++countAll;} //8
-  Wektor3D(const Wektor<double, 3> M) : Wektor<double, 3>(M)  {++countAll;} //30
+  Wektor3D(const Wektor<double, 3> & M) : Wektor<double, 3>(M)  {++countAll;} //30
   /*!
    * \brief destructor, also add 1 to countDestroyed.
    */ 

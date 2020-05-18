@@ -3,8 +3,8 @@ CPPFLAGS= -c -g -Iinc -Wall -pedantic -std=c++17
 __start__: Dron
 	./Dron
 
-Dron: obj/Dr3D_gnuplot_api.o obj/main.o obj/Wektor.o obj/Macierz.o obj/Dron.o obj/Prostopadloscian.o obj/Graniastoslup6.o obj/Plaszczyzna.o obj/Wektor3D.o
-	g++ -o Dron obj/main.o obj/Dr3D_gnuplot_api.o obj/Wektor.o obj/Macierz.o obj/Dron.o obj/Prostopadloscian.o obj/Plaszczyzna.o obj/Graniastoslup6.o obj/Wektor3D.o -lpthread
+Dron: obj/Dr3D_gnuplot_api.o obj/main.o obj/Wektor.o obj/Macierz.o obj/Dron.o obj/Obiekt3D.o obj/Prostopadloscian.o obj/Graniastoslup6.o obj/Plaszczyzna.o obj/Wektor3D.o
+	g++ -o Dron obj/main.o obj/Dr3D_gnuplot_api.o obj/Wektor.o obj/Macierz.o obj/Dron.o obj/Obiekt3D.o obj/Prostopadloscian.o obj/Plaszczyzna.o obj/Graniastoslup6.o obj/Wektor3D.o -lpthread
 
 obj/main.o: src/main.cpp inc/Dr3D_gnuplot_api.hh
 	g++ ${CPPFLAGS} -o obj/main.o src/main.cpp
@@ -28,6 +28,9 @@ obj/Wektor3D.o: src/Wektor3D.cpp inc/Wektor3D.hh
 obj/Dron.o: src/Dron.cpp inc/Dron.hh
 	g++ ${CPPFLAGS} -o obj/Dron.o src/Dron.cpp
 
+obj/Obiekt3D.o: src/Obiekt3D.cpp inc/Obiekt3D.hh
+	g++ ${CPPFLAGS} -o obj/Obiekt3D.o src/Obiekt3D.cpp
+
 obj/Prostopadloscian.o: src/Prostopadloscian.cpp inc/Prostopadloscian.hh inc/Obiekt3D.hh
 	g++ ${CPPFLAGS} -o obj/Prostopadloscian.o src/Prostopadloscian.cpp
 
@@ -37,8 +40,8 @@ obj/Graniastoslup6.o: src/Graniastoslup6.cpp inc/Graniastoslup6.hh inc/Obiekt3D.
 obj/Plaszczyzna.o: src/Plaszczyzna.cpp inc/Plaszczyzna.hh inc/Obiekt3D.hh
 	g++ ${CPPFLAGS} -o obj/Plaszczyzna.o src/Plaszczyzna.cpp
 
-AllHH: inc/MacierzOb.hh inc/Obiekt3D.hh
-	touch inc/MacierzOb.hh inc/Obiekt3D.hh
+AllHH: inc/MacierzOb.hh
+	touch inc/MacierzOb.hh
 
 clear:
 	rm -f obj/*.o Dron
