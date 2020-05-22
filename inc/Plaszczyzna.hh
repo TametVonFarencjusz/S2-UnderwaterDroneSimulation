@@ -15,17 +15,18 @@ using drawNS::APIGnuPlot3D;
 
 class Plaszczyzna : public Obiekt3D{
   protected:
-  double zLevel;
+  int size;
 
   public:
-  Plaszczyzna(std::shared_ptr<drawNS::Draw3DAPI> A, double Z = 0, std::string color = "purple") : Obiekt3D(A, color), zLevel(Z){};
+  Plaszczyzna(std::shared_ptr<drawNS::Draw3DAPI> A, double Z = 0, std::string color = "purple", int s = PLANEPOINT) : Obiekt3D(A, Wektor3D(0,0,Z), color), size(PLANEPOINT){};
+  Plaszczyzna(std::shared_ptr<drawNS::Draw3DAPI> A, const Wektor3D & W = Wektor3D(0,0,0), std::string color = "purple", int s = PLANEPOINT) : Obiekt3D(A, W, color), size(PLANEPOINT){};
 
-  void setZLevel(double Z){zLevel = Z;}
-  double getZLevel() const {return zLevel;}
+  //void setZLevel(double Z){zLevel = Z;}
+  //double getZLevel() const {return zLevel;}
   /*!
    * \brief draws plane
    */
-  void Draw() override;
+  virtual void Draw() override;
 };
 
 #endif

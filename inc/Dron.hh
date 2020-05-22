@@ -28,8 +28,6 @@ class Dron : public Prostopadloscian{
    * \brief Right propeller (Graniastoslup6)
    */
   Graniastoslup6 propellerRight;
-
-
   /*!
    * \brief refreshes left propeller's parametrs
    */
@@ -38,6 +36,17 @@ class Dron : public Prostopadloscian{
    * \brief refreshes right propeller's parametrs
    */
   void RefreshPropellerRight();
+  /*!
+   * \brief adding degrees to dron's angle 
+   * \param A - angle in degrees.
+   */
+  void addAngle(double A){angle += A; orientation = MacierzOb(angle, WymiarZ);}
+  /*!
+   * \brief move dron - changes center parametrs
+   * \param speed - distance that dron will go,
+   * \param angleY - angle in degrees.
+   */  
+  void Move(double speed, double angleY);
 
   public:
   /*!
@@ -65,18 +74,6 @@ class Dron : public Prostopadloscian{
    */
   double getAngle() const {return angle;}
   /*!
-   * \brief adding degrees to dron's angle 
-   * \param A - angle in degrees.
-   */
-  void addAngle(double A){angle += A; orientation = MacierzOb(angle, WymiarZ);}
-
-  /*!
-   * \brief move dron - changes center parametrs
-   * \param speed - distance that dron will go,
-   * \param angleY - angle in degrees.
-   */  
-  void Move(double speed, double angleY);
-  /*!
    * \brief calls Move(), DrawAll() and usleep(10000) 100 times
    * move dron - animation takes 1 sec to complete.
    * \param speed - distance that dron will go,
@@ -89,7 +86,6 @@ class Dron : public Prostopadloscian{
    * \param angleZ - angle in degrees.
    */  
   void addAngleAnimation(double angleZ);
-
   /*!
    * \brief calls UnDrawAll(), RefreshPropellerLeft(), RefreshPropellerRight() and Draw() for Dron and Propellers
    */

@@ -13,18 +13,19 @@ class Woda : public Plaszczyzna{
   //Woda() : zLevel(10),noise(0.5){};
   //Woda(double Z = 10, double N = 0) : zLevel(Z),noise(N){};
 
-  Woda(std::shared_ptr<drawNS::Draw3DAPI> A, double Z = -10, double N = 0.5, std::string color = "blue") : Plaszczyzna(A, Z, color), noise(N){};
+  Woda(std::shared_ptr<drawNS::Draw3DAPI> A, double Z = 10, std::string color = "blue", int s = PLANEPOINT, double N = 0.5) : Plaszczyzna(A, Z, color,s), noise(N){};
+  Woda(std::shared_ptr<drawNS::Draw3DAPI> A, const Wektor3D & W = Wektor3D(0,0,10), std::string color = "blue", int s = PLANEPOINT, double N = 0.5) : Plaszczyzna(A, W, color,s), noise(N){};
 
   void Draw() override
   {
     vector<vector<Point3D>> pointVectorBig;
     
-    for (int j = -PLANEPOINT; j <= PLANEPOINT; ++j)
+    for (int j = -size; j <= size; ++j)
     {
       vector<Point3D> pointVectorSmall;
-      for (int i = -PLANEPOINT; i <= PLANEPOINT; ++i)
+      for (int i = -size; i <= size; ++i)
       {
-        Wektor3D tempWektor(i*PLANESKIP,j*PLANESKIP,zLevel + noise * (i%2==0?-1:1));
+        Wektor3D tempWektor(center[0] + i*PLANESKIP, center[1] + j*PLANESKIP, center[2] + noise * (i%2==0?-1:1));
         tempWektor = orientation * tempWektor;
         pointVectorSmall.push_back(tempWektor);
       }

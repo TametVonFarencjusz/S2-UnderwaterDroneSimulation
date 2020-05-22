@@ -9,15 +9,14 @@ using drawNS::APIGnuPlot3D;
 
   void Plaszczyzna::Draw()
   {
-    
     vector<vector<Point3D>> pointVectorBig;
     
-    for (int j = -PLANEPOINT; j <= PLANEPOINT; ++j)
+    for (int j = -size; j <= size; ++j)
     {
       vector<Point3D> pointVectorSmall;
-      for (int i = -PLANEPOINT; i <= PLANEPOINT; ++i)
+      for (int i = -size; i <= size; ++i)
       {
-        Wektor3D tempWektor(i*PLANESKIP,j*PLANESKIP,zLevel);
+        Wektor3D tempWektor(center[0] + i*PLANESKIP,center[1] + j*PLANESKIP,center[2]);
         tempWektor = orientation * tempWektor;
         pointVectorSmall.push_back(tempWektor);
       }

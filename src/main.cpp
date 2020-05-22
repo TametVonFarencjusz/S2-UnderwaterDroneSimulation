@@ -31,8 +31,8 @@ void sayCountWektor3D(){
 }
 
 void sayCountObiekt3D(){
-      std::cout << "Aktualna ilosc obiektow Wektor3D: " << Obiekt3D::howManyNow() << std::endl ; //Aktualna  
-      std::cout << "Laczna ilosc obiektow Wektor3D: "   << Obiekt3D::howManyAll() << std::endl;
+      std::cout << "Aktualna ilosc obiektow Obiekt3D: " << Obiekt3D::howManyNow() << std::endl ; //Aktualna  
+      std::cout << "Laczna ilosc obiektow Obiekt3D: "   << Obiekt3D::howManyAll() << std::endl;
 }
 
 void wait4key() {
@@ -57,6 +57,10 @@ int main() {
 
   wait4key();
   
+  {
+    Dron D2(api);
+    D2.DrawAll();
+  }
 
   Dron D(api);
   D.DrawAll();

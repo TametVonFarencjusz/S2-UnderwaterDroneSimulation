@@ -9,7 +9,9 @@ class Dno : public Plaszczyzna{
   protected:
 
   public:
-  Dno(std::shared_ptr<drawNS::Draw3DAPI> A, double Z = -10, std::string color = "orange") : Plaszczyzna(A, Z, color){};
+  //Dno(std::shared_ptr<drawNS::Draw3DAPI> A, double Z = -10, std::string color = "orange") : Plaszczyzna(A, Z, color){};
+  Dno(std::shared_ptr<drawNS::Draw3DAPI> A, double Z = -10, std::string color = "orange", int s = PLANEPOINT) : Plaszczyzna(A, Z, color,s){};
+  Dno(std::shared_ptr<drawNS::Draw3DAPI> A, const Wektor3D & W = Wektor3D(0,0,-10), std::string color = "orange", int s = PLANEPOINT) : Plaszczyzna(A, W, color,s){};
 
   /*void Draw() override
   {
