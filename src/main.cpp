@@ -12,7 +12,7 @@
 #include "Graniastoslup6.hh"
 #include "InterfejsDrona.hh"
 //#include "Przeszkoda.hh"
-//#include "PrzeszkodaProstopadloscian.hh"
+#include "PrzeszkodaProstopadloscian.hh"
 
 
 #include "Dno.hh"
@@ -92,6 +92,27 @@ int main() {
   kolekcjaDron.push_back(dron3);
   kolekcjaPrzeszkoda.push_back(dron3);
 //6
+  std::shared_ptr<PrzeszkodaProstopadloscian> blok1 = std::make_shared<PrzeszkodaProstopadloscian>(api, Wektor3D(0,0,45), Wektor3D(20,-10,-20), Wektor3D(5,5,5));
+  kolekcjaPrzeszkoda.push_back(blok1);
+  blok1 -> Draw();
+  std::shared_ptr<PrzeszkodaProstopadloscian> blok2 = std::make_shared<PrzeszkodaProstopadloscian>(api, Wektor3D(0,0,0), Wektor3D(-20,-5,5), Wektor3D(2,2,2));
+  kolekcjaPrzeszkoda.push_back(blok2);
+  blok2 -> Draw();
+  std::shared_ptr<PrzeszkodaProstopadloscian> blok3 = std::make_shared<PrzeszkodaProstopadloscian>(api, Wektor3D(45,45,45), Wektor3D(15,-15,-15), Wektor3D(3,3,3));
+  kolekcjaPrzeszkoda.push_back(blok3);
+  blok3 -> Draw();
+  std::shared_ptr<PrzeszkodaProstopadloscian> blok4 = std::make_shared<PrzeszkodaProstopadloscian>(api, Wektor3D(-30,30,30), Wektor3D(20,-10, 0), Wektor3D(2.5,2.5,2.5));
+  kolekcjaPrzeszkoda.push_back(blok4);
+  blok4 -> Draw();
+  std::shared_ptr<PrzeszkodaProstopadloscian> blok5 = std::make_shared<PrzeszkodaProstopadloscian>(api, Wektor3D(0,45,0), Wektor3D(20,20,20), Wektor3D(6,5,4));
+  kolekcjaPrzeszkoda.push_back(blok5);
+  blok5 -> Draw();
+  std::shared_ptr<PrzeszkodaProstopadloscian> blok6 = std::make_shared<PrzeszkodaProstopadloscian>(api, Wektor3D(0,0,45), Wektor3D(-10,-3,3), Wektor3D(1,1,1));
+  kolekcjaPrzeszkoda.push_back(blok6);
+  blok6 -> Draw();
+
+
+
   uint dronID = 0;
   char option = 'm'; 
   double value;

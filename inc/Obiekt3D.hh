@@ -53,14 +53,14 @@ class Obiekt3D{
    * \param S - vector3D (Center),
    * \param C - color name (std::string); basic is "black",
    */
-  Obiekt3D(std::shared_ptr<drawNS::Draw3DAPI> A, MacierzOb M, Wektor3D S, std::string C = "black") :  api(A), orientation(M), center(S), color(C) , id(-1) {countAll++;}
+  Obiekt3D(std::shared_ptr<drawNS::Draw3DAPI> A, const MacierzOb & M, const Wektor3D & S, std::string C = "black") :  api(A), orientation(M), center(S), color(C) , id(-1) {countAll++;}
   /*!
    * \brief Constructor
    * \param A - pointer on api,
    * \param S - vector3D (Center),
    * \param C - color name (std::string); basic is "black",
    */
-  Obiekt3D(std::shared_ptr<drawNS::Draw3DAPI> A, Wektor3D S, std::string C = "black") :  api(A), center(S), color(C) , id(-1) {countAll++;}
+  Obiekt3D(std::shared_ptr<drawNS::Draw3DAPI> A, const Wektor3D & S, std::string C = "black") :  api(A), center(S), color(C) , id(-1) {countAll++;}
   /*!
    * \brief destructor that undraw Obiekt3D
    */ 
