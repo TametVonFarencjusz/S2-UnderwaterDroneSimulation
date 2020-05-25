@@ -3,7 +3,6 @@
 #include <vector>
 #include <string>
 #include <unistd.h>
-#include <memory>
 
 #include "Dr3D_gnuplot_api.hh"
 #include "MacierzOb.hh"
@@ -66,30 +65,26 @@ int main() {
   std::vector<std::shared_ptr<InterfejsDrona>> kolekcjaDron;
   std::vector<std::shared_ptr<Przeszkoda>> kolekcjaPrzeszkoda;
 
-  //Dno dno(api, -20, "orange");
-  std::shared_ptr<Dno> dno = std::make_shared<Dno>(api, -20, "orange");
+  std::shared_ptr<Dno> dno = std::make_shared<Dno>(api, -20);
   kolekcjaPrzeszkoda.push_back(dno);
-  dno->Draw();  
-
-  Woda woda(api, 20);
-  woda.Draw();
+  dno->Draw(); 
+  std::shared_ptr<Woda> woda = std::make_shared<Woda>(api, 20);
+  kolekcjaPrzeszkoda.push_back(woda);
+  woda->Draw();
 
   api->redraw();
 
   wait4key();
   
-  std::shared_ptr<InterfejsDrona> dronA = std::make_shared<InterfejsDrona>(api, 90.0, Wektor3D(3,3,3));
-  kolekcjaDron.push_back(dronA);
-  std::shared_ptr<InterfejsDrona> dronB = std::make_shared<InterfejsDrona>(api, 90.0, Wektor3D(-10,-3,-3));
-  kolekcjaDron.push_back(dronB);
-  //InterfejsDrona dronB(api, 90.0, Wektor3D(-3,-3,-3));
-  //kolekcjaDronow.push_back(dronB);
-  //dronA.Draw();
+  std::shared_ptr<InterfejsDrona> dron1 = std::make_shared<InterfejsDrona>(api, 90.0, Wektor3D(3,3,3));
+  kolekcjaDron.push_back(dron1);
+  std::shared_ptr<InterfejsDrona> dron2 = std::make_shared<InterfejsDrona>(api, 0.0, Wektor3D(-10,-3,-3));
+  kolekcjaDron.push_back(dron2);
+  std::shared_ptr<InterfejsDrona> dron3 = std::make_shared<InterfejsDrona>(api, -70.0, Wektor3D(20,10,-10));
+  kolekcjaDron.push_back(dron3);
+  std::shared_ptr<InterfejsDrona> dron4 = std::make_shared<InterfejsDrona>(api, 30.0, Wektor3D(10,-10,-10));
+  kolekcjaDron.push_back(dron4);
 
-  //Dron D(api);
-  //D.DrawAll();
-
-  
   uint dronID = 0;
   char option = 'm'; 
   double value;
@@ -146,8 +141,10 @@ int main() {
             kolekcjaDron[dronID]->Move(value/100, value2);
             for (auto elem : kolekcjaPrzeszkoda)
             {
-              if (elem->isCollision(kolekcjaDron[dronID]))
+              if (elem->isCollision(kolekcjaDron[dronID])){
               flag = false;
+              std::cout << std::endl << "!!!Wykryto przeszkode!!!" << std::endl;
+              }
             }
             if (!flag)
             kolekcjaDron[dronID]->Move(-value/100, value2);

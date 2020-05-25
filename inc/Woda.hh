@@ -2,19 +2,24 @@
 #define WODA_HH
 
 #include "Plaszczyzna.hh"
+#include "Przeszkoda.hh"
 #include <iostream>
 #include <string>
 
-class Woda : public Plaszczyzna{
+class Woda : public Plaszczyzna, public Przeszkoda{
   protected:
   double noise;
 
   public:
-  //Woda() : zLevel(10),noise(0.5){};
-  //Woda(double Z = 10, double N = 0) : zLevel(Z),noise(N){};
-
   Woda(std::shared_ptr<drawNS::Draw3DAPI> A, double Z = 10, std::string color = "blue", int s = PLANEPOINT, double N = 0.5) : Plaszczyzna(A, Z, color,s), noise(N){};
   Woda(std::shared_ptr<drawNS::Draw3DAPI> A, const Wektor3D & W = Wektor3D(0,0,10), std::string color = "blue", int s = PLANEPOINT, double N = 0.5) : Plaszczyzna(A, W, color,s), noise(N){};
+
+  bool isCollision(std::shared_ptr<InterfejsDrona> inDron) override
+  {
+    if (inDron->getDron().getCenter()[2] > center[2])
+      return true;
+    return false;
+  }
 
   void Draw() override
   {
