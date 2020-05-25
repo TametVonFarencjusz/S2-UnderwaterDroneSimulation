@@ -56,6 +56,18 @@ class Dron : public Prostopadloscian{
   Dron(std::shared_ptr<drawNS::Draw3DAPI> A) : Prostopadloscian(A), propellerLeft(A, "yellow"), propellerRight(A, "yellow")
   {
     point0 = {3,2,2};
+    angle = 0;
+    anglePropeller = 0;
+    //propellerRight.setOrientation(MacierzOb(90, WymiarY));
+  }
+  /*!
+   * \brief Constructor//////////////////////////////////////////////////////////////////////////////////////////////
+   * \param A - pointer on api,
+   */
+  Dron(std::shared_ptr<drawNS::Draw3DAPI> A, double Alfa, const Wektor3D & Srod, const Wektor3D & Punkt, std::string C = "yellow") : Prostopadloscian(A, Wektor3D(0,0,-Alfa), Srod, Punkt, C), propellerLeft(A, "yellow"), propellerRight(A, "yellow")
+  {
+    point0 = {3,2,2};
+    angle = Alfa;
     anglePropeller = 0;
     //propellerRight.setOrientation(MacierzOb(90, WymiarY));
   }

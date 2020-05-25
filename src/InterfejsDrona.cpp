@@ -3,8 +3,6 @@
 
 void Dron::DrawAll(){
   UnDrawAll();
-  orientation = MacierzOb(angle, WymiarZ);
-  //std::cout << color;
   anglePropeller+= 4;
   RefreshPropellerLeft();
   RefreshPropellerRight();
@@ -47,7 +45,6 @@ void Dron::UnDrawAll(){
 void Dron::RefreshPropellerRight(){
   //static double angleStaticRight;
   //angleStaticRight += 4;
-  propellerRight.setColor(color);
   propellerRight.setCenter(center - orientation * point0);
   propellerRight.setOrientation(Wektor3D(-angle, 90, anglePropeller));
 }
@@ -55,7 +52,6 @@ void Dron::RefreshPropellerRight(){
 void Dron::RefreshPropellerLeft(){
   //static double angleStaticLeft;
   //angleStaticLeft -= 4;
-  propellerLeft.setColor(color);
   propellerLeft.setCenter(center - orientation * point0.Reverse(WymiarY));
   propellerLeft.setOrientation(Wektor3D(-angle, 90, -anglePropeller));
 }

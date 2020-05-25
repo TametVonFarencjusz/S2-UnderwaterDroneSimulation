@@ -3,6 +3,7 @@
 #include <vector>
 #include <string>
 #include <unistd.h>
+#include <memory>
 
 #include "Dr3D_gnuplot_api.hh"
 #include "MacierzOb.hh"
@@ -10,6 +11,7 @@
 #include "Dron.hh"
 #include "Plaszczyzna.hh"
 #include "Graniastoslup6.hh"
+#include "InterfejsDrona.hh"
 
 #include "Dno.hh"
 #include "Woda.hh"
@@ -20,6 +22,21 @@ using drawNS::Point3D;
 using drawNS::APIGnuPlot3D;
 using std::cout;
 using std::endl;
+
+void DrawDrons(std::vector<std::shared_ptr<InterfejsDrona>> kolekcjaDron){
+  for (uint i = 0; i < kolekcjaDron.size(); i++)
+  {
+    kolekcjaDron[i]->Draw();
+  }
+}
+
+void DronColor(std::vector<std::shared_ptr<InterfejsDrona>> kolekcjaDron, uint ID){
+  for (uint i = 0; i < kolekcjaDron.size(); i++)
+  {
+    kolekcjaDron[i]->setPicked(false);
+  }
+  kolekcjaDron[ID]->setPicked(true);
+}
 
 void sayLoadError(){
   std::cout << "ERROR: Blad podczas wczytywania!!!!" << std::endl;
@@ -42,33 +59,40 @@ void wait4key() {
 }
 
 int main() {
-  std::shared_ptr<drawNS::Draw3DAPI> api(new APIGnuPlot3D(-20,20,-20,20,-20,20)); //włacza gnuplota, pojawia się scena [-5,5] x [-5,5] x [-5,5] odświeżana co 1000 ms
-  api->change_ref_time_ms(-1); //odświeżanie sceny zmienione na opcję "z każdym pojawieniem się lub zniknięciem kształtu"
-  
-  Wektor3D A(2,3,2);
+  std::shared_ptr<drawNS::Draw3DAPI> api(new APIGnuPlot3D(-30,30,-30,30,-30,30,-1));
 
-  Dno dno(api, -10, "orange");
+  //std::vector<>> pointVectorBig
+  std::vector<std::shared_ptr<InterfejsDrona>> kolekcjaDron;
+
+  Dno dno(api, -20, "orange");
   dno.Draw();  
 
-  Woda woda(api, 10);
+  Woda woda(api, 20);
   woda.Draw();
 
   api->redraw();
 
   wait4key();
   
-  {
-    Dron D2(api);
-    D2.DrawAll();
-  }
+  std::shared_ptr<InterfejsDrona> dronA = std::make_shared<InterfejsDrona>(api, 90.0, Wektor3D(3,3,3));
+  kolekcjaDron.push_back(dronA);
+  std::shared_ptr<InterfejsDrona> dronB = std::make_shared<InterfejsDrona>(api, 90.0, Wektor3D(-10,-3,-3));
+  kolekcjaDron.push_back(dronB);
+  //InterfejsDrona dronB(api, 90.0, Wektor3D(-3,-3,-3));
+  //kolekcjaDronow.push_back(dronB);
+  //dronA.Draw();
 
-  Dron D(api);
-  D.DrawAll();
+  //Dron D(api);
+  //D.DrawAll();
 
-  api->redraw();
+  
+  uint dronID = 0;
   char option = 'm'; 
   double value;
   double value2;
+
+  DronColor(kolekcjaDron, dronID); 
+  DrawDrons(kolekcjaDron);
 
   std::cout << std::endl;
   do
@@ -79,6 +103,7 @@ int main() {
       std::cout << "o - zadaj zmiane orientacji" << std::endl;
       std::cout << "m - wyswietl menu" << std::endl;
       std::cout << "p - pozycja drona" << std::endl;
+      std::cout << "z - zmien drona" << std::endl;
       std::cout << "k - koniec dzialania programu" << std::endl;
     break;
     case 'o':
@@ -86,7 +111,7 @@ int main() {
       std::cout << "Wartosc kata>" << std::endl;
       std::cin >> value; 
       if (std::cin.good()){
-        D.addAngleAnimation(value);
+        kolekcjaDron[dronID]->addAngleAnimation(value);
       } else sayLoadError();
     break;
     case 'r':
@@ -104,15 +129,24 @@ int main() {
           if (std::cin.good() && value < 0) std::cout << "Wartosc ujemna. Podaj ponownie" << std::endl;
         }while(std::cin.good() && value < 0); 
         if (std::cin.good()){
-          D.MoveAnimation(value, value2);
+          kolekcjaDron[dronID]->MoveAnimation(value, value2);
         } else sayLoadError();
       }
       else sayLoadError();
     break;
     case 'p':
       std::cout << "Pozycja drona" << std::endl;
-      std::cout << D.getCenter() << std::endl;
-      
+      std::cout << kolekcjaDron[dronID]->getDron().getCenter() << std::endl;
+    break;
+    case 'z':
+      std::cout << "Zmiana drona(nr)>" << std::endl;
+      do{
+        std::cout << "Nr Drona (MAX:0 do " << kolekcjaDron.size() - 1 << ")>";
+        std::cin >> dronID;
+        if (std::cin.good() && (dronID < 0 || dronID >= kolekcjaDron.size())) std::cout << "Wartosc poza zakresem. Podaj ponownie" << std::endl;
+      }while(std::cin.good() && (dronID < 0 || dronID >= kolekcjaDron.size())); 
+     DronColor(kolekcjaDron, dronID); 
+     DrawDrons(kolekcjaDron);
     break;
     }
     if (!std::cin.good())
@@ -120,7 +154,6 @@ int main() {
       std::cin.clear( ); 
       std::cin.ignore(10000,'\n');
     }
-    //D.DrawAll();
     std::cout << std::endl; sayCountWektor3D(); std::cout << std::endl;
     std::cout << std::endl; sayCountObiekt3D(); std::cout << std::endl;
     std::cout << "Twoj wybor, m - menu>";
