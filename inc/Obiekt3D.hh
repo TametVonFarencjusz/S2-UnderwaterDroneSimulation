@@ -86,6 +86,11 @@ class Obiekt3D{
    */
   MacierzOb getOrientation() const {return orientation;}
   /*!
+   * \brief Getter - api
+   * \return std::shared_ptr<drawNS::Draw3DAPI>.
+   */
+  std::shared_ptr<drawNS::Draw3DAPI> getAPI() const {return api;}
+  /*!
    * \brief Setter - color
    * \param std::string.
    */

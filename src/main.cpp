@@ -12,6 +12,7 @@
 #include "Plaszczyzna.hh"
 #include "Graniastoslup6.hh"
 #include "InterfejsDrona.hh"
+#include "Przeszkoda.hh"
 
 #include "Dno.hh"
 #include "Woda.hh"
@@ -63,9 +64,12 @@ int main() {
 
   //std::vector<>> pointVectorBig
   std::vector<std::shared_ptr<InterfejsDrona>> kolekcjaDron;
+  std::vector<std::shared_ptr<Przeszkoda>> kolekcjaPrzeszkoda;
 
-  Dno dno(api, -20, "orange");
-  dno.Draw();  
+  //Dno dno(api, -20, "orange");
+  std::shared_ptr<Dno> dno = std::make_shared<Dno>(api, -20, "orange");
+  kolekcjaPrzeszkoda.push_back(dno);
+  dno->Draw();  
 
   Woda woda(api, 20);
   woda.Draw();
@@ -106,6 +110,7 @@ int main() {
       std::cout << "z - zmien drona" << std::endl;
       std::cout << "k - koniec dzialania programu" << std::endl;
     break;
+
     case 'o':
       std::cout << std::endl << "Podaj wartosc kata obrotu w stopniach." << std::endl;
       std::cout << "Wartosc kata>" << std::endl;
@@ -114,30 +119,54 @@ int main() {
         kolekcjaDron[dronID]->addAngleAnimation(value);
       } else sayLoadError();
     break;
+
     case 'r':
       std::cout << std::endl << "Podaj wartosc kata (opadania/wznoszenia) w stopniach." << std::endl;
-      do{
+      do 
+      {
         std::cout << "Wartosc kata [-90,90]>";
         std::cin >> value2; 
         if (std::cin.good() && (value2 < -90 || value2 > 90)) std::cout << "Wartosc poza ograniczeniem. Podaj ponownie" << std::endl;
-      }while(std::cin.good() && (value2 < -90 || value2 > 90));      
-      if (std::cin.good()){
+      } while(std::cin.good() && (value2 < -90 || value2 > 90));      
+      if (std::cin.good())
+      {
         std::cout << std::endl << "Podaj wartosc odleglosci, na ktora ma sie przemiescic dron." << std::endl;
-        do{
+        do 
+        {
           std::cout << "Wartosc odleglosci>";
           std::cin >> value;
           if (std::cin.good() && value < 0) std::cout << "Wartosc ujemna. Podaj ponownie" << std::endl;
-        }while(std::cin.good() && value < 0); 
-        if (std::cin.good()){
-          kolekcjaDron[dronID]->MoveAnimation(value, value2);
+        } while(std::cin.good() && value < 0); 
+        if (std::cin.good())
+        {
+          bool flag = true; 
+          uint i = 0;
+          do{
+            i++;  
+            kolekcjaDron[dronID]->Move(value/100, value2);
+            for (auto elem : kolekcjaPrzeszkoda)
+            {
+              if (elem->isCollision(kolekcjaDron[dronID]))
+              flag = false;
+            }
+            if (!flag)
+            kolekcjaDron[dronID]->Move(-value/100, value2);
+            kolekcjaDron[dronID]->Draw();
+            usleep(10000);
+          }while (flag && i < 100);
+          //kolekcjaDron[dronID]->MoveAnimation(value, value2);
+
+
         } else sayLoadError();
       }
       else sayLoadError();
     break;
+
     case 'p':
       std::cout << "Pozycja drona" << std::endl;
       std::cout << kolekcjaDron[dronID]->getDron().getCenter() << std::endl;
     break;
+
     case 'z':
       std::cout << "Zmiana drona(nr)>" << std::endl;
       do{

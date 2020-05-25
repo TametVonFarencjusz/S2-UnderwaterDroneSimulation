@@ -17,26 +17,6 @@ void Dron::DrawAll(){
 void Dron::Move(double speed, double angleY){ 
   center = center + speed * Wektor3D(cos(angleY / 180 * M_PI)*cos(angle / 180 * M_PI), sin(angle / 180 * M_PI)*cos(angleY / 180 * M_PI), sin(angleY / 180 * M_PI));
 }
- 
-void Dron::MoveAnimation(double speed, double angleY){ 
-  for (int i = 0; i < 100; ++i)
-  {
-    Move(speed/100, angleY);
-    DrawAll();
-    api->redraw();
-    usleep(10000);
-  }
-}
- 
-void Dron::addAngleAnimation(double angleZ){ 
-  for (int i = 0; i < 100; ++i)
-  {
-    addAngle(angleZ/100);
-    DrawAll();
-    api->redraw();
-    usleep(10000);
-  }
-}
 
 void Dron::UnDrawAll(){
   UnDraw();
