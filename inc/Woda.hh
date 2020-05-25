@@ -16,7 +16,7 @@ class Woda : public Plaszczyzna, public Przeszkoda{
 
   bool isCollision(std::shared_ptr<InterfejsDrona> inDron) override
   {
-    if (inDron->getDron().getCenter()[2] > center[2])
+    if (inDron->getCenter()[2] > center[2])
       return true;
     return false;
   }

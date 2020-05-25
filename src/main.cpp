@@ -11,7 +11,9 @@
 #include "Plaszczyzna.hh"
 #include "Graniastoslup6.hh"
 #include "InterfejsDrona.hh"
-#include "Przeszkoda.hh"
+//#include "Przeszkoda.hh"
+//#include "PrzeszkodaProstopadloscian.hh"
+
 
 #include "Dno.hh"
 #include "Woda.hh"
@@ -33,9 +35,9 @@ void DrawDrons(std::vector<std::shared_ptr<InterfejsDrona>> kolekcjaDron){
 void DronColor(std::vector<std::shared_ptr<InterfejsDrona>> kolekcjaDron, uint ID){
   for (uint i = 0; i < kolekcjaDron.size(); i++)
   {
-    kolekcjaDron[i]->setPicked(false);
+    kolekcjaDron[i]->setColor("yellow");
   }
-  kolekcjaDron[ID]->setPicked(true);
+  kolekcjaDron[ID]->setColor("green");
 }
 
 void sayLoadError(){
@@ -71,20 +73,25 @@ int main() {
   std::shared_ptr<Woda> woda = std::make_shared<Woda>(api, 20);
   kolekcjaPrzeszkoda.push_back(woda);
   woda->Draw();
+  //std::shared_ptr<PrzeszkodaProstopadloscian> blok = std::make_shared<PrzeszkodaProstopadloscian>(api);
+  //kolekcjaPrzeszkoda.push_back(blok);
+  //blok->Draw();
+
 
   api->redraw();
 
   wait4key();
   
-  std::shared_ptr<InterfejsDrona> dron1 = std::make_shared<InterfejsDrona>(api, 90.0, Wektor3D(3,3,3));
+  std::shared_ptr<Dron> dron1 = std::make_shared<Dron>(api, 0.0, Wektor3D(10,-5,5));
   kolekcjaDron.push_back(dron1);
-  std::shared_ptr<InterfejsDrona> dron2 = std::make_shared<InterfejsDrona>(api, 0.0, Wektor3D(-10,-3,-3));
+  kolekcjaPrzeszkoda.push_back(dron1);
+  std::shared_ptr<Dron> dron2 = std::make_shared<Dron>(api, 90.0, Wektor3D(-10,-0,-10));
   kolekcjaDron.push_back(dron2);
-  std::shared_ptr<InterfejsDrona> dron3 = std::make_shared<InterfejsDrona>(api, -70.0, Wektor3D(20,10,-10));
+  kolekcjaPrzeszkoda.push_back(dron2);
+  std::shared_ptr<Dron> dron3 = std::make_shared<Dron>(api, 75.0, Wektor3D(5,-5,-5));
   kolekcjaDron.push_back(dron3);
-  std::shared_ptr<InterfejsDrona> dron4 = std::make_shared<InterfejsDrona>(api, 30.0, Wektor3D(10,-10,-10));
-  kolekcjaDron.push_back(dron4);
-
+  kolekcjaPrzeszkoda.push_back(dron3);
+//6
   uint dronID = 0;
   char option = 'm'; 
   double value;
@@ -151,8 +158,7 @@ int main() {
             kolekcjaDron[dronID]->Draw();
             usleep(10000);
           }while (flag && i < 100);
-          //kolekcjaDron[dronID]->MoveAnimation(value, value2);
-
+          //kolekcjaDron[dronID]->MoveAnimation(value, value2, kolekcjaPrzeszkoda);
 
         } else sayLoadError();
       }
@@ -161,18 +167,22 @@ int main() {
 
     case 'p':
       std::cout << "Pozycja drona" << std::endl;
-      std::cout << kolekcjaDron[dronID]->getDron().getCenter() << std::endl;
+      std::cout << kolekcjaDron[dronID]->getCenter() << std::endl;
     break;
 
     case 'z':
       std::cout << "Zmiana drona(nr)>" << std::endl;
       do{
         std::cout << "Nr Drona (MAX:0 do " << kolekcjaDron.size() - 1 << ")>";
-        std::cin >> dronID;
+        std::cin >> value;
         if (std::cin.good() && (dronID < 0 || dronID >= kolekcjaDron.size())) std::cout << "Wartosc poza zakresem. Podaj ponownie" << std::endl;
       }while(std::cin.good() && (dronID < 0 || dronID >= kolekcjaDron.size())); 
-     DronColor(kolekcjaDron, dronID); 
-     DrawDrons(kolekcjaDron);
+      if (std::cin.good())
+      {
+        dronID = value;
+        DronColor(kolekcjaDron, dronID);
+        DrawDrons(kolekcjaDron);
+      } else sayLoadError();
     break;
     }
     if (!std::cin.good())
