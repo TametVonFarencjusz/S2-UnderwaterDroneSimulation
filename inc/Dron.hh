@@ -12,7 +12,7 @@
 #include <unistd.h>
 #include <iostream>
 
-class Dron : public Prostopadloscian, public InterfejsDrona, public Przeszkoda{
+class Dron : public Prostopadloscian, public InterfejsDrona, public Przeszkoda, public std::enable_shared_from_this<Dron>{
   protected:
   /*!
    * \brief angle of dron
@@ -100,7 +100,7 @@ class Dron : public Prostopadloscian, public InterfejsDrona, public Przeszkoda{
    * \param speed - distance that dron will go,
    * \param angleY - angle in degrees.
    */  
-  void MoveAnimation (double speed, double angleY);
+  void MoveAnimation (double speed, double angleY, std::vector<std::shared_ptr<Przeszkoda>> kolekcjaPrzeszkoda);
   /*!
    * \brief calls addAngle(), DrawAll() and usleep(10000) 100 times
    * rotate dron - animation takes 1 sec to complete.

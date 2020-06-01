@@ -8,6 +8,8 @@
 #include <unistd.h>
 #include <iostream>
 
+class Przeszkoda;
+
 class InterfejsDrona{
   protected:
   public:
@@ -20,7 +22,7 @@ class InterfejsDrona{
   virtual void setAngle(double A) = 0;
   virtual double getAngle() = 0;
   virtual void addAngle(double A) = 0;
-  virtual void MoveAnimation(double speed, double angleY) = 0;
+  virtual void MoveAnimation(double speed, double angleY, std::vector<std::shared_ptr<Przeszkoda>> kolekcjaPrzeszkoda) = 0;
   virtual void addAngleAnimation(double angleZ) = 0;
   virtual void Move(double speed, double angleY) = 0;
   virtual void Draw() = 0;

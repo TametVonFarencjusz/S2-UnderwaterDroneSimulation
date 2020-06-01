@@ -101,13 +101,13 @@ int main() {
   std::shared_ptr<PrzeszkodaProstopadloscian> blok3 = std::make_shared<PrzeszkodaProstopadloscian>(api, Wektor3D(45,45,45), Wektor3D(15,-15,-15), Wektor3D(3,3,3));
   kolekcjaPrzeszkoda.push_back(blok3);
   blok3 -> Draw();
-  std::shared_ptr<PrzeszkodaProstopadloscian> blok4 = std::make_shared<PrzeszkodaProstopadloscian>(api, Wektor3D(-30,30,30), Wektor3D(20,-10, 0), Wektor3D(2.5,2.5,2.5));
+  std::shared_ptr<PrzeszkodaProstopadloscian> blok4 = std::make_shared<PrzeszkodaProstopadloscian>(api, Wektor3D(0,0,0), Wektor3D(20,-10, 0), Wektor3D(2.5,10,2.5));
   kolekcjaPrzeszkoda.push_back(blok4);
   blok4 -> Draw();
   std::shared_ptr<PrzeszkodaProstopadloscian> blok5 = std::make_shared<PrzeszkodaProstopadloscian>(api, Wektor3D(0,45,0), Wektor3D(20,20,20), Wektor3D(6,5,4));
   kolekcjaPrzeszkoda.push_back(blok5);
   blok5 -> Draw();
-  std::shared_ptr<PrzeszkodaProstopadloscian> blok6 = std::make_shared<PrzeszkodaProstopadloscian>(api, Wektor3D(0,0,45), Wektor3D(-10,-3,3), Wektor3D(1,1,1));
+  std::shared_ptr<PrzeszkodaProstopadloscian> blok6 = std::make_shared<PrzeszkodaProstopadloscian>(api, Wektor3D(0,0,45), Wektor3D(-10,-3,3), Wektor3D(10,10,1));
   kolekcjaPrzeszkoda.push_back(blok6);
   blok6 -> Draw();
 
@@ -162,26 +162,8 @@ int main() {
         } while(std::cin.good() && value < 0); 
         if (std::cin.good())
         {
-          bool flag = true; 
-          uint i = 0;
-          do{
-            i++;  
-            kolekcjaDron[dronID]->Move(value/100, value2);
-            for (auto elem : kolekcjaPrzeszkoda)
-            {
-              if (elem->isCollision(kolekcjaDron[dronID])){
-              flag = false;
-              std::cout << std::endl << "!!!Wykryto przeszkode!!!" << std::endl;
-              }
-            }
-            if (!flag)
-            kolekcjaDron[dronID]->Move(-value/100, value2);
-            kolekcjaDron[dronID]->Draw();
-            usleep(10000);
-          }while (flag && i < 100);
-          //kolekcjaDron[dronID]->MoveAnimation(value, value2, kolekcjaPrzeszkoda);
-
-        } else sayLoadError();
+	  kolekcjaDron[dronID]->MoveAnimation(value, value2, kolekcjaPrzeszkoda);
+	}
       }
       else sayLoadError();
     break;

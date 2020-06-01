@@ -10,26 +10,23 @@ bool Dron::isCollision(std::shared_ptr<InterfejsDrona> inDron)
 }
 
  
-void Dron::MoveAnimation(double speed, double angleY){ 
-  bool flag = true;
-  int i = 0;
-  std::cout << "WEES";
-  do
-  {
-    i++;
-    Move(speed/100, angleY);
-    //for (auto elem : kolekcjaPrzeszkoda)
-    {
-      //if(elem -> isCollision((std::shared_ptr<InterfejsDrona>) this))
+void Dron::MoveAnimation(double speed, double angleY, std::vector<std::shared_ptr<Przeszkoda>> kolekcjaPrzeszkoda){ 
+  bool flag = true; 
+  uint i = 0;
+  do{
+      i++;  
+      Move(speed/100, angleY);
+      for (auto elem : kolekcjaPrzeszkoda)
       {
+        if (elem->isCollision(shared_from_this())){
         flag = false;
-        Move(-speed/100, angleY);
+        std::cout << std::endl << "!!!Wykryto przeszkode!!!" << std::endl;
+        }
       }
-    }
-    Draw();
-    api->redraw();
-    usleep(10000);
-  } while (flag && i < 100);
+      if (!flag) Move(-speed/100, angleY);
+      Draw();
+      usleep(10000);
+    }while (flag && i < 100);
 }
  
 void Dron::addAngleAnimation(double angleZ){ 
