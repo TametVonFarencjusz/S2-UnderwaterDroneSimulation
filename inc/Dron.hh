@@ -51,18 +51,21 @@ class Dron : public Prostopadloscian, public InterfejsDrona, public Przeszkoda, 
     //propellerRight.setOrientation(MacierzOb(90, WymiarY));
   }
   /*!
-   * \brief Constructor//////////////////////////////////////////////////////////////////////////////////////////////
+   * \brief Constructor
    * \param A - pointer on api,
+   * \param Alfa - Angle in Z axis,
+   * \param Srod - Wekto3D on position of the dron,
+   * \param Punkt - Wekto3D on point0 of the dron (size of the dron),
+   * \param C - color of the dron,
    */
   Dron(std::shared_ptr<drawNS::Draw3DAPI> A, double Alfa, const Wektor3D & Srod, const Wektor3D & Punkt = Wektor3D(3,2,2), std::string C = "yellow") : Prostopadloscian(A, Wektor3D(0,0,-Alfa), Srod, Punkt, C), propellerLeft(A, "yellow"), propellerRight(A, "yellow")
   {
     point0 = Punkt;
     angle = Alfa;
     anglePropeller = 0;
-    //propellerRight.setOrientation(MacierzOb(90, WymiarY));
   }
   /*!
-   * \brief Destructor
+   * \brief Destructor - UnDraw the dron
    */
   ~Dron() {UnDraw();}
   /*!

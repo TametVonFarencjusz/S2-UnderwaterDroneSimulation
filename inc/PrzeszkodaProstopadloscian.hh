@@ -18,7 +18,7 @@ class PrzeszkodaProstopadloscian : public Przeszkoda, public Prostopadloscian{
     Wektor3D tempD = orientation * inDron->getCenter();
     Wektor3D tempC = orientation * center;
 
-    if (center == Wektor3D(20,-10, 0))std::cout << tempW;
+    //if (center == Wektor3D(20,-10, 0))std::cout << tempW;
     bool flag = true;
     if (!(abs(tempD[0] - tempC[0]) < tempW[0] + inDron->getRadius()))
       flag = false;

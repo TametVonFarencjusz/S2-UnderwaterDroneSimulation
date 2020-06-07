@@ -107,7 +107,7 @@ int main() {
   std::shared_ptr<PrzeszkodaProstopadloscian> blok5 = std::make_shared<PrzeszkodaProstopadloscian>(api, Wektor3D(0,45,0), Wektor3D(20,20,20), Wektor3D(6,5,4));
   kolekcjaPrzeszkoda.push_back(blok5);
   blok5 -> Draw();
-  std::shared_ptr<PrzeszkodaProstopadloscian> blok6 = std::make_shared<PrzeszkodaProstopadloscian>(api, Wektor3D(0,0,45), Wektor3D(-10,-3,3), Wektor3D(10,10,1));
+  std::shared_ptr<PrzeszkodaProstopadloscian> blok6 = std::make_shared<PrzeszkodaProstopadloscian>(api, Wektor3D(0,0,45), Wektor3D(-10,-3,3), Wektor3D(5,5,1));
   kolekcjaPrzeszkoda.push_back(blok6);
   blok6 -> Draw();
 
