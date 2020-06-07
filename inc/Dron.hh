@@ -110,12 +110,25 @@ class Dron : public Prostopadloscian, public InterfejsDrona, public Przeszkoda, 
    * \param angleZ - angle in degrees.
    */  
   void addAngleAnimation(double angleZ) override;
-
+  /*!
+   * \brief Getter - center
+   * \return Wektor3D.
+   */
   Wektor3D getCenter() override {return Obiekt3D::getCenter();}
-
+  /*!
+   * \brief Getter - Radius
+   * \return length of point0 (double).
+   */
   double getRadius() {return point0.dlugosc();}
+  /*!
+   * \brief Setter - color
+   * \return string.
+   */
   void setColor (const std::string & C) override {color = C;}
-  /////////////////////////////////////////
+    /*!
+   * \brief Checking collision
+   * \return false if no collision and true if there is collision.
+   */
   bool isCollision(std::shared_ptr<InterfejsDrona> inDron) override;
 };
 
