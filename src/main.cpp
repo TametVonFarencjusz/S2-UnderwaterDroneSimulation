@@ -63,25 +63,21 @@ void wait4key() {
 int main() {
   std::shared_ptr<drawNS::Draw3DAPI> api(new APIGnuPlot3D(-30,30,-30,30,-30,30,-1));
 
-  //std::vector<>> pointVectorBig
+//Wektory
   std::vector<std::shared_ptr<InterfejsDrona>> kolekcjaDron;
   std::vector<std::shared_ptr<Przeszkoda>> kolekcjaPrzeszkoda;
-
+//Dno i woda
   std::shared_ptr<Dno> dno = std::make_shared<Dno>(api, -20);
   kolekcjaPrzeszkoda.push_back(dno);
   dno->Draw(); 
   std::shared_ptr<Woda> woda = std::make_shared<Woda>(api, 20);
   kolekcjaPrzeszkoda.push_back(woda);
   woda->Draw();
-  //std::shared_ptr<PrzeszkodaProstopadloscian> blok = std::make_shared<PrzeszkodaProstopadloscian>(api);
-  //kolekcjaPrzeszkoda.push_back(blok);
-  //blok->Draw();
-
 
   api->redraw();
 
   wait4key();
-  
+//Drony
   std::shared_ptr<Dron> dron1 = std::make_shared<Dron>(api, 0.0, Wektor3D(10,-5,5));
   kolekcjaDron.push_back(dron1);
   kolekcjaPrzeszkoda.push_back(dron1);
@@ -91,11 +87,11 @@ int main() {
   std::shared_ptr<Dron> dron3 = std::make_shared<Dron>(api, 75.0, Wektor3D(5,-5,-5));
   kolekcjaDron.push_back(dron3);
   kolekcjaPrzeszkoda.push_back(dron3);
-//6
+//Przeszkody
   std::shared_ptr<PrzeszkodaProstopadloscian> blok1 = std::make_shared<PrzeszkodaProstopadloscian>(api, Wektor3D(0,0,45), Wektor3D(20,-10,-20), Wektor3D(5,5,5));
   kolekcjaPrzeszkoda.push_back(blok1);
   blok1 -> Draw();
-  std::shared_ptr<PrzeszkodaProstopadloscian> blok2 = std::make_shared<PrzeszkodaProstopadloscian>(api, Wektor3D(0,0,0), Wektor3D(-20,-5,5), Wektor3D(2,2,2));
+  std::shared_ptr<PrzeszkodaProstopadloscian> blok2 = std::make_shared<PrzeszkodaProstopadloscian>(api, Wektor3D(30,45,30), Wektor3D(-25,15, 0), Wektor3D(2,6,2));
   kolekcjaPrzeszkoda.push_back(blok2);
   blok2 -> Draw();
   std::shared_ptr<PrzeszkodaProstopadloscian> blok3 = std::make_shared<PrzeszkodaProstopadloscian>(api, Wektor3D(45,45,45), Wektor3D(15,-15,-15), Wektor3D(3,3,3));
@@ -180,7 +176,7 @@ int main() {
         std::cin >> value;
         if (std::cin.good() && (dronID < 0 || dronID >= kolekcjaDron.size())) std::cout << "Wartosc poza zakresem. Podaj ponownie" << std::endl;
       }while(std::cin.good() && (dronID < 0 || dronID >= kolekcjaDron.size())); 
-      if (std::cin.good())
+      if (std::cin.good() && value >= 0 && value < kolekcjaDron.size())
       {
         dronID = value;
         DronColor(kolekcjaDron, dronID);
@@ -199,6 +195,5 @@ int main() {
     std::cin >> option;
     std::cout << std::endl;
   } while(option != 'k');
-  //4 - 35
   wait4key();
 }
